@@ -1,6 +1,7 @@
 /* Mobile First */
 body {
   background-color: #507786;
+  /*507786 507786*/
   /*background-color: #4a525a;*/
   max-width: 100%;
   font-family: "Lucida Grande";
@@ -58,6 +59,7 @@ article div {
 	font-size: 1.3em;
 	letter-spacing: 1.2px;
 	color: #ccc;
+  margin-left: -10px;
 }
 .title a:hover {
 	color: #eee;
