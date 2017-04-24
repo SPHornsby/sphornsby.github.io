@@ -1,1 +1,1 @@
-[GitHub repo for: ](https://sphornsby.github.io/)
+GitHub repo for: [https://sphornsby.github.io/](https://sphornsby.github.io/)
