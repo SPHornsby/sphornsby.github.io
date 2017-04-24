@@ -1,0 +1,60 @@
+/* Tablet */
+@media (min-width: 600px) {
+  #logo {
+    grid-column: 3/span 1
+    /*position: absolute;
+    left: 15%;
+    top: 60px;*/
+  }
+  .tab-menu {
+    display: none;
+  }
+  #menu {
+    /*position: absolute;
+    left: 15%;
+    top: 150px;*/
+    font-size: 11px;
+    text-align: right;
+    line-height: 20px;
+  }
+  #menu ul {
+    display: unset;
+    list-style: none;
+  }
+  .uc, #menu ul li a{
+    color: #eee;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  #menu ul li a:hover {
+    color: #eee;
+    background-color: #606870;
+  }
+  #articles {
+    /*position: absolute;
+    left: 35%;
+    top: 150px; */
+    width: 400px;
+  }
+}
+/* Med Screen */
+@media (min-width: 768px) {
+
+  /*#articles {
+    position: absolute;
+    left: 35%;
+    top: 150px; 
+    width: 400px;
+  }*/
+}
+/* Lrg Screen */
+@media (min-width: 1024px) {
+  #menu {
+    /*left: 23%;
+    top: 150px;*/
+  }
+  #logo {
+    /*left: 23%;
+    top: 60px;*/
+  }
+}
