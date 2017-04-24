@@ -119,6 +119,9 @@ blockquote {
     display: unset;
     grid-column: 2/span 1;
   }
+  .projects img {
+    border: 2px solid #ccc;
+  }
   #articles {
     grid-column: 3/span 1
   }
