@@ -86,8 +86,8 @@ article div {
 	text-decoration: none;
   background-color: #405f6b;
 }
-.permalink {
-  text-decoration: none;
+.title span {
+  float: right;
 }
 blockquote {
   margin-left: 0;
