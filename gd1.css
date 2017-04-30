@@ -4,7 +4,7 @@ body {
 }
 #wrapper {
   display: grid;
-  grid-template-columns: 1fr 2fr 3fr 2fr 1fr;
+  grid-template-columns: 5px 2fr 3fr 2fr 5px;
 }
 .title, h3 {
   text-align: center;
@@ -14,7 +14,7 @@ h3{
   font-variant: small-caps;
 }
 #main {
-  grid-column: 3;
+  grid-column: 2/span 3;
 }
 .italics {
   font-style: italic;
