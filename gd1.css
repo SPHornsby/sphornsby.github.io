@@ -27,3 +27,9 @@ code {
   background-color: black;
   color: white;
 }
+@media (min-width: 768px) {
+  #main {
+    grid-column: 3/span 1;
+  }
+
+}
