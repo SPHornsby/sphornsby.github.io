@@ -1,0 +1,29 @@
+body {
+  font-family: 'Gills Sans', sans-serif;
+
+}
+#wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 2fr 1fr;
+}
+.title, h3 {
+  text-align: center;
+}
+h3{
+  font-size: .8em;
+  font-variant: small-caps;
+}
+#main {
+  grid-column: 3;
+}
+.italics {
+  font-style: italic;
+}
+article {
+  text-align: justify;
+}
+code {
+  display: block;
+  background-color: black;
+  color: white;
+}
