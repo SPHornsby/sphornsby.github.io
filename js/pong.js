@@ -11,7 +11,14 @@ window.onload = function() {
   let p_scoreText;
   let c_score = 0;
   let c_scoreText;
+  let paddle_hit_1;
+  let paddle_hit_2;
+  let wall_hit;
+
   function preload () {
+    game.load.audio('p_hit_1', './sounds/paddle_hit.wav');
+    game.load.audio('p_hit_2', './sounds/paddle_hit_2.wav');
+    game.load.audio('wall_hit', './sounds/wall_hit.wav');
   }
   
   function create () {
@@ -41,13 +48,18 @@ window.onload = function() {
     game.physics.arcade.enable(ball);
     // ball.body.collideWorldBounds = true;
     ball.body.velocity.x = -300;
-    ball.body.velocity.y = -10 * Math.random() + 10;
+    ball.body.velocity.y = (Math.random() * 10 - 5) * 30;
 
     // scores
-    p_scoreText = game.add.text(40, 16, '0', { fontSize: '40px', fill: '#fff' });
-    c_scoreText = game.add.text(720, 16, '0', { fontSize: '40px', fill: '#fff' });
+    p_scoreText = game.add.text(320, 16, '0', { font: 'Courier', fontSize: '40px', fill: '#fff' });
+    c_scoreText = game.add.text(450, 16, '0', { font: 'Courier', fontSize: '40px', fill: '#fff' });
     // controls
     cursors = game.input.keyboard.createCursorKeys();
+
+    // sounds
+    paddle_hit_1 = game.add.audio('p_hit_1');
+    paddle_hit_2 = game.add.audio('p_hit_2');
+    wall_hit = game.add.audio('wall_hit');
   }
 
   function update () {
@@ -58,6 +70,7 @@ window.onload = function() {
     // ball hits top or bottom
     if (ball.body.y <= 0 || ball.body.y >= 600) {
       ball.body.velocity.y *= -1;
+      wall_hit.play();
     }
     // ball is out
     if (ball.body.x <= 0) {
@@ -99,20 +112,20 @@ window.onload = function() {
     console.log('ball actor', ball.y, actor.y);
     if (actor.y + 30 < ball.y + 3) {
       console.log('actor hi');
-      ball.body.velocity.y += (actor.y - ball.y) * -2;
+      ball.body.velocity.y += (actor.y - 30 - ball.y) * -2;
     }
     if (actor.y + 30 > ball.y + 3) {
       console.log('actor low')
-      ball.body.velocity.y += (actor.y - ball.y) * 2;
+      ball.body.velocity.y += (actor.y - 30 - ball.y) * 2;
     }
     ball.body.velocity.x *= -1;
-    console.log(ball.body.velocity.y);
+    paddle_hit_1.play();
   }
   function restart() {
     ball.body.x = 395;
     ball.body.y = 300;
-    ball.body.velocity.x = -300;
-    ball.body.velocity.y = -20 * Math.random();
+    // ball.body.velocity.x = -300;
+    // ball.body.velocity.y = -20 * Math.random();
   }
 
 };
