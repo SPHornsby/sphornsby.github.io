@@ -66,7 +66,7 @@ window.onload = function() {
     //
     game.physics.arcade.overlap(ball, player, reflect, null, this);
     game.physics.arcade.overlap(ball, c_player, reflect, null, this);
-    
+    console.log(ball.body.velocity.y, 'y vel');
     // ball hits top or bottom
     if (ball.body.y <= 0 || ball.body.y >= 600) {
       ball.body.velocity.y *= -1;
