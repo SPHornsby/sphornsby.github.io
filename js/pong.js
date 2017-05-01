@@ -119,7 +119,10 @@ window.onload = function() {
       ball.body.velocity.y += (actor.y - 30 - ball.y) * 2;
     }
     ball.body.velocity.x *= -1;
-    paddle_hit_1.play();
+    if(actor.body.center < 50) {
+      paddle_hit_1.play();
+    }
+    else paddle_hit_2.play();
   }
   function restart() {
     ball.body.x = 395;
