@@ -25,13 +25,18 @@
           </p>
           <p>
             A Phaser JavaScript file can roughly be broken down into six parts. At the top of the file is the game declaration.
-            <pre class="prettyprint"><code>
-  const game = new Phaser.Game(800, 600, Phaser.AUTO, 'pg', { preload: preload, create: create, update: update }); 
-            </code></pre>
+          </p>
+          <pre class="prettyprint"><code>
+  const game = new Phaser.Game(800, 600, Phaser.AUTO, 'pg', {
+                  preload: preload, create: create, update: update 
+                }); 
+          </code></pre>
+          <p>
             Inside the declaration are several parameters. Working from left to right they are: game width, game height, game type (WebGL/Canvas/Auto), the html attachment point (optional), and an initialization object.
           </p>
           <p>
             The second part of the game is the initialization of your game objects. The globals that get handled by the game code. Here you will typically see player and enemy objects, groups, score, sounds, any terrain that can be interacted with, etc.
+          </p>
             <pre class="prettyprint"><code>
   let player;
   let c_player;
@@ -39,9 +44,11 @@
   let cursors;
   let p_score = 0;
   let p_scoreText;
+  ...
             </code></pre>
-          </p>
+          <p>
             Next up are the core components of a Phaser game. Preload is where all the assets are loaded into the game (for use later in Create and Update). Things like sprites, images, and sounds are all aliased here. You can tell you are in the Preloader by the heavy use of game.load.
+          </p>
             <pre class="prettyprint"><code>
   function preload () {
     game.load.audio('p_hit_1', './sounds/paddle_hit.wav');
