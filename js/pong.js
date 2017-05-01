@@ -76,13 +76,11 @@ window.onload = function() {
     if (ball.body.x <= 0) {
       c_score++;
       c_scoreText.text = c_score;
-      console.log('score cpu');
       restart();
     }
     if (ball.body.x >= 800) {
       p_score++
       p_scoreText.text = p_score;
-      console.log('score player');
       restart();
     }
     // c_player tracking
@@ -109,13 +107,10 @@ window.onload = function() {
 
   }
   function reflect(ball, actor) {
-    console.log('ball actor', ball.y, actor.y);
     if (actor.y + 30 < ball.y + 3) {
-      console.log('actor hi');
       ball.body.velocity.y += (actor.y - 30 - ball.y) * -2;
     }
     if (actor.y + 30 > ball.y + 3) {
-      console.log('actor low')
       ball.body.velocity.y += (actor.y - 30 - ball.y) * 2;
     }
     ball.body.velocity.x *= -1;
