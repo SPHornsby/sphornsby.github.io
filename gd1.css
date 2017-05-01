@@ -8,20 +8,29 @@ body {
   display: grid;
   grid-template-columns: 5px 2fr 3fr 2fr 5px;
 }
-.title, h3 {
-  color: #cccc00;
+.title, h3, h4 {
+  color: #dd0;
   text-align: center;
 }
-h3{
+h3, .author {
+  color: #eb0;
+}
+h3 {
+  margin-top: 3px;
+}
+h4{
   color: #ddd;
   font-size: .8em;
   font-variant: small-caps;
 }
-.author {
-  color: #d90;
-}
+/*.author {
+  
+}*/
 #main {
   grid-column: 2/span 3;
+}
+p {
+  font-size: 0.9em;
 }
 a {
   text-decoration: none;
@@ -30,14 +39,25 @@ a {
 a:visited {
   color: #444;
 }
+ul {
+  font-size: 0.9em;
+  list-style-type: square;
+}
 .italics {
   font-style: italic;
 }
 article {
-  text-align: justify;
+  text-indent: 1em;
+  /*text-align: justify;*/
 }
 code {
   font-size: 0.75em;
+}
+blockquote {
+  border: 1px solid #555;
+  background-color: #555;
+  color: #ccc;
+  padding: 6px;
 }
 @media (min-width: 768px) {
   #main {

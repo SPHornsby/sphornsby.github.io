@@ -15,7 +15,7 @@
     <div id="main">
       <div class="inner">
         <h2 class="title">Game Development for the Web, Part 2</h2>
-        <h3>by <span class="author">Sean Hornsby</span> from <a href="http://justgetcoding.com">JustGetCoding.com</a></h3>
+        <h4>by <span class="author">Sean Hornsby</span> from <a href="http://justgetcoding.com">JustGetCoding.com</a></h4>
         <article>
           <p>
             This is an introduction to game development, using JavaScript and HTML5. I am using the Phaser framework, which is built on top of Pixi.js. You can download Phaser <a href="#">here</a>, the documentation is <a href="#">here</a>, and Phaser's excellent intro tutorial is <a href="#">here</a>. I will cover everything that is in the Phaser tutorial, but it is still a great reference.
@@ -27,7 +27,8 @@
             A Phaser JavaScript file can roughly be broken down into six parts. At the top of the file is the game declaration.
           </p>
           <pre class="prettyprint"><code>
-  const game = new Phaser.Game(800, 600, Phaser.AUTO, 'pg', {
+  const game = 
+        new Phaser.Game(800, 600, Phaser.AUTO, 'pg', {
                   preload: preload, create: create, update: update 
                 }); 
           </code></pre>
@@ -57,12 +58,80 @@
   }
             </code></pre>
           <p>
-            Create does exactly that. It creates the game state and puts everything in place for the game to run. Those background images and player sprites you set up in Preload are attached to Phaser objects here using game.add.
+            Create does exactly that. It creates the game state and puts everything in place for the game to run. Those background images and player sprites you set up in Preload are attached to Phaser objects here using game.add. 
+          </p>
+          <pre class="prettyprint"><code>
+  function create () {
+    //player
+    player = game.add.graphics (40, 270);
+    player.beginFill(0xFFFFFF, 1);
+    player.drawRect(0,0,10,60);
+    game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
+    ...
+  }
+          </code></pre>
+          <p>
+            There is a lot going on in 5 lines of code, so I'll break it down. The first three lines create a player at a certain point of the game, set its color to opaque white, and set its shape. The fourth line is the big one. Phaser bundles a whole lot of work into that one line. Anything worth doing with Phaser's game objects will likely require a physics model. The arcade physics gives us access to positioning and movement via the body property. Line five uses that to keep the player bound inside the game. Another piece of code that will come in handy later is the cursors assignment.
+          </p>
+          <pre class="prettyprint"><code>
+  function create () {
+    ...
+    // controls
+    cursors = game.input.keyboard.createCursorKeys();
+  }
+          </code></pre>
+          <p>
+            Put simply, Phaser allows us to quickly assign common movement keys. We'll use those in the Update function very soon.
           </p>
           <p>
             Preload and Create run once. Update, on the other hand, runs every frame, it is your classic game loop. Because of this, it is the home for the game logic. Things like checking for conditions and performing actions based on those conditions. Updating score, player health, movement, timers, etc.
           </p>
+          
+          <blockquote>
+            <h3>~ Philosophical Interlude ~</h3>
+            <p>
+              One of the hardest things for me to learn has been keeping things simple. In my head, I always thought I was distilling down to essentials, but what I was really doing was convincing myself that it was 'simple enough.' That's not simple though, and sometimes it is pretty far from simple. Any project will have multiple concepts to deal with, and the best thing to do is take them one at a time. One. Not a few related concepts bundled into one. One. Concept. At. A. Time.
+            </p>
+            <p>
+              A very simple first Phaser game will certainly have several game logic concepts. It is tempting to look at the end result, see how simple it is, and think you can handle it all as a chunk. I would suggest listing out each concept.
+            </p>
+            <ul>
+              <li>Collision</li>
+              <li>Movement</li>
+              <li>Scorekeeping</li>
+              <li>Object interaction</li>
+            </ul>
+            <p>
+              Even a straightforward game will very quickly need other concepts too. Things like:
+            </p>
+            <ul>
+              <li>AI</li>
+              <li>Group Logic</li>
+              <li>Conditionals</li>
+            </ul>
+          </blockquote>
           <p>
+            All of this comes together in the Update section. Update runs every frame, so it s the place to deal with anything that is expected to change. Any collisions, movement, scorekeeping,... anything from the lists we made above, happens here. The first item on the list is collision, and Phaser has thoughfully provided us two methods to handle collision: collide, and overlap. Collide will automatically separate the colliding objects, while overlap will not. Since I want to tell the objects what to do when they hit each other, I am going to use overlap. 
+          </p>
+          <pre class="prettyprint"><code>
+  function update () {
+    // collision
+    game.physics.arcade.overlap(ball, player, reflect);
+    game.physics.arcade.overlap(ball, c_player, reflect);
+    ...
+  }
+          </code></pre>
+          <p>
+            Overlap is called with up to five parameters, only the first two of which are necessary. They are: object1, object2, overlapCallback, processCallback, and callbackContext. In this case, I have no need for the processCallback or callbackContext. I give overlap the two objects and a function to run if they overlap. Here is what that looks like in its simplest form:
+          </p>
+                    <pre class="prettyprint"><code>
+  function reflect(ball, actor) {
+    ball.body.velocity.x *= -1;
+  }
+          </code></pre>
+          <p>
+            So, if the ball and the player (or c_player) overlap, reflect reverses the horizontal velocity. It can (and will) get more complex as our game gets more complex, but for now, that will do just fine.
           </p>
         </article>
       </div>
