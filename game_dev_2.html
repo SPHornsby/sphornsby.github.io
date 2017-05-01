@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Game Development for the Web, Part 2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./gd1.css" />
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+</head>
+
+<body>
+  <!-- Wrapper -->
+  <div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+      <div class="inner">
+        <h2 class="title">Game Development for the Web, Part 2</h2>
+        <h3>by <span class="author">Sean Hornsby</span> from <a href="http://justgetcoding.com">JustGetCoding.com</a></h3>
+        <article>
+          <p>
+            This is an introduction to game development, using JavaScript and HTML5. I am using the Phaser framework, which is built on top of Pixi.js. You can download Phaser <a href="#">here</a>, the documentation is <a href="#">here</a>, and Phaser's excellent intro tutorial is <a href="#">here</a>. I will cover everything that is in the Phaser tutorial, but it is still a great reference.
+          </p>
+          <p>
+            Building a game with Phaser requires very little setup. First I write a bare bones html page. It has two jobs. It pulls in the Phaser code from a CDN, and it has a spot for the game to live. I use a named div as the target, but if there is nowhere else for it to go, Phaser will just drop it into the body. From there it is on to the meat, the JavaScript file.
+          </p>
+          <p>
+            A Phaser JavaScript file can roughly be broken down into six parts. At the top of the file is the game declaration.
+            <pre class="prettyprint"><code>
+  const game = new Phaser.Game(800, 600, Phaser.AUTO, 'pg', { preload: preload, create: create, update: update }); 
+            </code></pre>
+            Inside the declaration are several parameters. Working from left to right they are: game width, game height, game type (WebGL/Canvas/Auto), the html attachment point (optional), and an initialization object.
+          </p>
+          <p>
+            The second part of the game is the initialization of your game objects. The globals that get handled by the game code. Here you will typically see player and enemy objects, groups, score, sounds, any terrain that can be interacted with, etc.
+            <pre class="prettyprint"><code>
+  let player;
+  let c_player;
+  let ball;
+  let cursors;
+  let p_score = 0;
+  let p_scoreText;
+            </code></pre>
+          </p>
+            Next up are the core components of a Phaser game. Preload is where all the assets are loaded into the game (for use later in Create and Update). Things like sprites, images, and sounds are all aliased here. You can tell you are in the Preloader by the heavy use of game.load.
+            <pre class="prettyprint"><code>
+  function preload () {
+    game.load.audio('p_hit_1', './sounds/paddle_hit.wav');
+    game.load.audio('p_hit_2', './sounds/paddle_hit_2.wav');
+    game.load.audio('wall_hit', './sounds/wall_hit.wav');
+  }
+            </code></pre>
+          <p>
+            Create does exactly that. It creates the game state and puts everything in place for the game to run. Those background images and player sprites you set up in Preload are attached to Phaser objects here using game.add.
+          </p>
+          <p>
+            Preload and Create run once. Update, on the other hand, runs every frame, it is your classic game loop. Because of this, it is the home for the game logic. Things like checking for conditions and performing actions based on those conditions. Updating score, player health, movement, timers, etc.
+          </p>
+          <p>
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
