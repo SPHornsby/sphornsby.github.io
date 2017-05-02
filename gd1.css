@@ -48,13 +48,17 @@ ul {
 }
 article {
   text-indent: 1em;
-  /*text-align: justify;*/
+  text-align: justify;
 }
 code {
   font-size: 0.75em;
 }
+pre {
+  max-width: 100%;
+  overflow: auto;
+}
 blockquote {
-  border: 1px solid #555;
+  border: 1px solid #333;
   background-color: #555;
   color: #ccc;
   padding: 6px;
@@ -63,5 +67,7 @@ blockquote {
   #main {
     grid-column: 3/span 1;
   }
-
+  code {
+    white-space: pre-wrap;
+  }
 }

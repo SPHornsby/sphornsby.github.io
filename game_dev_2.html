@@ -18,7 +18,7 @@
         <h4>by <span class="author">Sean Hornsby</span> from <a href="http://justgetcoding.com">JustGetCoding.com</a></h4>
         <article>
           <p>
-            This is an introduction to game development, using JavaScript and HTML5. I am using the Phaser framework, which is built on top of Pixi.js. You can download Phaser <a href="#">here</a>, the documentation is <a href="#">here</a>, and Phaser's excellent intro tutorial is <a href="#">here</a>. I will cover everything that is in the Phaser tutorial, but it is still a great reference.
+            This is an introduction to game development, using JavaScript and HTML5. I am using the Phaser framework, which is built on top of Pixi.js. You can download Phaser <a href="https://phaser.io/">here</a>, the documentation is <a href="https://photonstorm.github.io/phaser-ce/">here</a>.
           </p>
           <p>
             Building a game with Phaser requires very little setup. First I write a bare bones html page. It has two jobs. It pulls in the Phaser code from a CDN, and it has a spot for the game to live. I use a named div as the target, but if there is nowhere else for it to go, Phaser will just drop it into the body. From there it is on to the meat, the JavaScript file.
@@ -27,10 +27,7 @@
             A Phaser JavaScript file can roughly be broken down into six parts. At the top of the file is the game declaration.
           </p>
           <pre class="prettyprint"><code>
-  const game = 
-        new Phaser.Game(800, 600, Phaser.AUTO, 'pg', {
-                  preload: preload, create: create, update: update 
-                }); 
+  const game = new Phaser.Game(800, 600, Phaser.AUTO, 'pg', { preload: preload, create: create, update: update }); 
           </code></pre>
           <p>
             Inside the declaration are several parameters. Working from left to right they are: game width, game height, game type (WebGL/Canvas/Auto), the html attachment point (optional), and an initialization object.
@@ -69,6 +66,10 @@
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
     ...
+    // sounds
+    paddle_hit_1 = game.add.audio('p_hit_1');
+    paddle_hit_2 = game.add.audio('p_hit_2');
+    wall_hit = game.add.audio('wall_hit');
   }
           </code></pre>
           <p>
@@ -89,7 +90,7 @@
           </p>
           
           <blockquote>
-            <h3>~ Philosophical Interlude ~</h3>
+            <h3>Philosophical Interlude</h3>
             <p>
               One of the hardest things for me to learn has been keeping things simple. In my head, I always thought I was distilling down to essentials, but what I was really doing was convincing myself that it was 'simple enough.' That's not simple though, and sometimes it is pretty far from simple. Any project will have multiple concepts to deal with, and the best thing to do is take them one at a time. One. Not a few related concepts bundled into one. One. Concept. At. A. Time.
             </p>
@@ -100,7 +101,6 @@
               <li>Collision</li>
               <li>Movement</li>
               <li>Scorekeeping</li>
-              <li>Object interaction</li>
             </ul>
             <p>
               Even a straightforward game will very quickly need other concepts too. Things like:
@@ -132,6 +132,57 @@
           </code></pre>
           <p>
             So, if the ball and the player (or c_player) overlap, reflect reverses the horizontal velocity. It can (and will) get more complex as our game gets more complex, but for now, that will do just fine.
+          </p>
+          <p>
+            Remember way back in create when we assigned createCursorKeys() to cursors? That is a tidy little Phaser that binds the arrow keys as up, down, left, and right. Now, they are available to us inside update (and actually anywhere else in the game because of where we declared cursors).
+          </p>
+          <pre class="prettyprint"><code>
+  // controls
+  player.body.velocity.y = 0;
+  if (cursors.up.isDown) {
+    //  Move up
+    player.body.velocity.y = -250;
+  }
+  else if (cursors.down.isDown) {
+    //  Move down
+    player.body.velocity.y = 250;
+  }
+          </code></pre>
+          <p>
+            Scorekeeping comes in a lot of forms. Sometimes it is displayed during the whole game, other times just at the end, or maybe never. What this tells me is that keeping score and showing the score are separate responsibilities. Since they are closely related, we can tackle them back to back here.
+          </p>
+          <p>
+            Keeping score is fairly easy. Declare global score variable, and then increment (or decrement, or reset or whatever), anywhere that the game calls for it.
+          </p>
+          <pre class="prettyprint"><code>
+  function update () {
+    ...
+    // ball is out
+    if (ball.body.x <= 0) {
+      p_score++;
+    }
+    ...
+  }
+          </code></pre>
+          <p>
+            The score display needs to be added to the game as a text element. That is accomplished with a Phaser game.add.text The format should look familiar. X coordinate, y coordinate, and value, followed by a style object (that's just good old CSS).
+          </p>
+          <pre class="prettyprint"><code>
+  // scores
+  p_scoreText = game.add.text(320, 16, '0', { font: 'Courier', fontSize: '40px', fill: '#fff' });
+          </code></pre>
+          <p>
+            Now that score is being tracked and a display object exists, we can update the score when necessary. How about every time update runs?
+          </p>
+          <pre class="prettyprint"><code>
+  function update () {
+    ...
+    p_scoreText.text = p_score;
+    ...
+  }
+          </code></pre>
+          <p>
+            That is a lot to chew on, but it is also enough to make a simple game. In the next installment, that is exactly what I plan to do. The classic game Pong will bring all of these concepts, and a few more, together in one place. <a href="https://sphornsby.github.io/game_dev_3.html">Follow along here!</a>
           </p>
         </article>
       </div>
