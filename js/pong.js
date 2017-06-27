@@ -63,7 +63,7 @@ window.onload = function() {
   }
 
   function update () {
-    //
+    // collision
     game.physics.arcade.overlap(ball, player, reflect, null, this);
     game.physics.arcade.overlap(ball, c_player, reflect, null, this);
     console.log(ball.body.velocity.y, 'y vel');
